@@ -1,0 +1,21 @@
+{
+  "name": "Cinder House — Live Fire Kitchen & Rooms",
+  "short_name": "Cinder House",
+  "description": "A live-fire kitchen and five-room boutique stay in Taj Ganj, Agra.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0c0a09",
+  "theme_color": "#e05c21",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' rx='36' fill='%230c0a09'/%3E%3Cpath d='M96 28c12 36-24 48-24 84a24 24 0 0 0 48 0c12 18 12 38 12 38A60 60 0 1 1 72 164s12-36 12-60c0 0 24-12 12-76Z' fill='%23e05c21'/%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%230c0a09'/%3E%3Cpath d='M256 75c32 96-64 128-64 224a64 64 0 0 0 128 0c32 48 32 101 32 101A160 160 0 1 1 192 437s32-96 32-160c0 0 64-32 32-202Z' fill='%23e05c21'/%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
