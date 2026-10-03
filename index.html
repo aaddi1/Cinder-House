@@ -91,7 +91,19 @@
   .navlinks{ display:none; }
   @media(min-width:900px){ .navlinks{ display:flex; } }
 
-  .nav-right{ display:flex; align-items:center; gap:16px; }
+  .nav-right{ display:flex; align-items:center; gap:14px; }
+  .sound-toggle{
+    width:38px; height:38px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    color:rgb(var(--bone)); transition:transform 0.3s cubic-bezier(.34,1.56,.64,1), border-color 0.3s ease, background 0.3s ease;
+    padding:0; flex:0 0 38px;
+  }
+  .sound-toggle:hover{
+    transform:scale(1.08); border-color:rgb(var(--ember-soft));
+    box-shadow: 0 0 16px rgba(235,140,74,0.35);
+  }
+  .sound-toggle svg{ width:18px; height:18px; stroke:currentColor; }
+  .sound-toggle.playing{ color:rgb(var(--ember-soft)); border-color:rgb(var(--ember-soft)); }
   .btn.nav-book{ padding:10px 20px; font-size:13px; }
   @media(max-width:520px){ .btn.nav-book{ display:none; } .fab-main{width:56px;height:56px;} .fab-item{width:44px;height:44px;} }
 
@@ -229,19 +241,20 @@
   .glass{
     position:relative;
     background:
-      linear-gradient(135deg, rgba(255,255,255,0.105), rgba(255,255,255,0.028) 48%, rgba(224,92,33,0.045));
-    border:1px solid rgba(255,255,255,0.14);
+      linear-gradient(135deg, rgba(255,255,255,0.115), rgba(255,255,255,0.035) 45%, rgba(224,92,33,0.05));
+    border:1px solid rgba(255,255,255,0.16);
     box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.13),
-      inset 0 -1px 0 rgba(196,156,90,0.08),
-      0 24px 70px rgba(0,0,0,0.22);
-    backdrop-filter: blur(22px) saturate(125%);
-    -webkit-backdrop-filter: blur(22px) saturate(125%);
+      inset 0 1.5px 1.5px rgba(255,255,255,0.22),
+      inset 0 -1px 1px rgba(196,156,90,0.10),
+      0 20px 60px rgba(0,0,0,0.35),
+      0 4px 12px rgba(0,0,0,0.20);
+    backdrop-filter: blur(28px) saturate(180%) contrast(104%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%) contrast(104%);
   }
   .glass::before{
     content:''; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
-    background:linear-gradient(115deg,rgba(255,255,255,0.13),transparent 25%,transparent 70%,rgba(235,140,74,0.06));
-    opacity:.75;
+    background:linear-gradient(125deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.025) 30%, transparent 65%, rgba(235,140,74,0.08) 100%);
+    opacity:.85;
   }
   .hero::after{
     content:''; position:absolute; inset:auto 0 0; height:48%; z-index:-1; pointer-events:none;
@@ -482,6 +495,10 @@
     <a href="#contact">Contact</a>
   </div>
   <div class="nav-right">
+    <button class="sound-toggle glass" id="soundToggle" type="button" aria-label="Toggle ambient live-fire soundscape" title="Toggle sound">
+      <svg class="sound-icon-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
+      <svg class="sound-icon-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+    </button>
     <a href="#contact" class="btn solid nav-book">Book now</a>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -895,6 +912,79 @@
 (function(){
   "use strict";
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clock = (typeof THREE !== 'undefined') ? new THREE.Clock() : { getElapsedTime: function(){ return performance.now() * 0.001; } };
+
+  /* ---------- AMBIENT LIVE-FIRE SOUNDSCAPE (SYNTHESIZED WEB AUDIO) ---------- */
+  var soundBtn = document.getElementById('soundToggle');
+  var audioCtx = null;
+  var isSoundActive = false;
+
+  function initHearthAudio(){
+    try {
+      var AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      audioCtx = new AudioContextClass();
+
+      var bufferSize = audioCtx.sampleRate * 2;
+      var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      var data = buffer.getChannelData(0);
+      var b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (var i = 0; i < bufferSize; i++) {
+        var white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.035;
+        b6 = white * 0.115926;
+      }
+
+      var noise = audioCtx.createBufferSource();
+      noise.buffer = buffer;
+      noise.loop = true;
+
+      var filter = audioCtx.createBiquadFilter();
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(380, audioCtx.currentTime);
+
+      var gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(audioCtx.destination);
+      noise.start();
+    } catch(err) {
+      console.warn('AudioContext not supported or blocked:', err);
+    }
+  }
+
+  if (soundBtn){
+    soundBtn.addEventListener('click', function(){
+      if (!isSoundActive){
+        if (!audioCtx) initHearthAudio();
+        else if (audioCtx.state === 'suspended') audioCtx.resume();
+        isSoundActive = true;
+        soundBtn.classList.add('playing');
+        var onIcon = soundBtn.querySelector('.sound-icon-on');
+        var offIcon = soundBtn.querySelector('.sound-icon-off');
+        if (onIcon) onIcon.style.display = 'block';
+        if (offIcon) offIcon.style.display = 'none';
+        soundBtn.setAttribute('aria-label', 'Mute ambient soundscape');
+      } else {
+        if (audioCtx) audioCtx.suspend();
+        isSoundActive = false;
+        soundBtn.classList.remove('playing');
+        var onIcon2 = soundBtn.querySelector('.sound-icon-on');
+        var offIcon2 = soundBtn.querySelector('.sound-icon-off');
+        if (onIcon2) onIcon2.style.display = 'none';
+        if (offIcon2) offIcon2.style.display = 'block';
+        soundBtn.setAttribute('aria-label', 'Play ambient soundscape');
+      }
+    });
+  }
 
   /* ---------- NAV scroll state ---------- */
   var nav = document.getElementById('nav');
