@@ -42,7 +42,7 @@
 
 ## 🌐 Live Production Experience
 
-> **Cinder House** is an immersive, modern boutique hotel and live-fire culinary platform set in Taj Ganj, Agra, near the Taj Mahal. Deployed and **live now** at **[https://aaddi1.github.io/Cinder-House/](https://aaddi1.github.io/Cinder-House/)**, the entire platform is engineered from scratch with a custom **Three.js WebGL particle engine**, **Apple-inspired Liquid Glass UI**, procedural **Web Audio soundscape**, fluid camera kinematics, and interactive booking components.
+> **Cinder House** is an immersive, modern boutique hotel and live-fire culinary platform set in Tundla, Uttar Pradesh, India 283204. Deployed and **live now** at **[https://aaddi1.github.io/Cinder-House/](https://aaddi1.github.io/Cinder-House/)**, the entire platform is engineered from scratch with a custom **Three.js WebGL particle engine**, **Apple-inspired Liquid Glass UI**, procedural **Web Audio soundscape**, fluid camera kinematics, and interactive booking components.
 >
 > 🚀 **Explore the live platform directly in your browser:** [https://aaddi1.github.io/Cinder-House/](https://aaddi1.github.io/Cinder-House/)
 
@@ -57,7 +57,7 @@ system_spec:
   status: "Live in Production"
   production_url: "https://aaddi1.github.io/Cinder-House/"
   creator: "Aryan Sharma"
-  location: "Taj Ganj, Agra, Uttar Pradesh, India 🇮🇳"
+  location: "Tundla, Uttar Pradesh, India 283204 🇮🇳"
   contact_email: "aaddisharmarkczw@gmail.com"
   
 core_engineering:
@@ -142,7 +142,7 @@ The codebase has been refactored for maximum production performance:
 * **Five Curated Rooms Upstairs:** Complete interactive visual showcase of *The Hearth Room*, *The Copper Suite*, *The Ember Loft*, *The Smoke House*, and *The Lantern Room*, featuring 3D perspective mouse tilt and pricing.
 * **Live-Fire Kitchen Dining:** Tabbed culinary showcase with real-time course switching for *Fire Starters*, *From the Coals*, *Embers & Sweets*, and *The Cellar*.
 * **Interactive Guest Testimonials & Reviews:** Star/ember rating system, guest quotes, and review cards.
-* **Embedded Taj Ganj Location Map:** Integrated Google Maps iframe displaying the exact venue location in Taj Ganj, Agra.
+* **Embedded Location Map:** Integrated Google Maps iframe displaying the venue location in Tundla, Uttar Pradesh, India 283204.
 * **Radial Floating Action Button (FAB):** Expandable radial menu in the bottom-right viewport with instant links to Instagram, LinkedIn, WhatsApp, Email, and X (Twitter).
 
 ---
@@ -173,7 +173,7 @@ All 3D WebGL animations, Three.js shaders, ember physics algorithms, Apple Liqui
 | 𝕏 **X (Twitter)** | [@aryan56710](https://x.com/aryan56710) |
 | 📬 **Direct Email** | [aaddisharmarkczw@gmail.com](mailto:aaddisharmarkczw@gmail.com) |
 | ✨ **3D Portfolio** | [https://aaddi1.github.io/My-Portfolio/](https://aaddi1.github.io/My-Portfolio/) |
-| 📍 **Location** | Taj Ganj, Agra / Tundla, Uttar Pradesh, India 🇮🇳 |
+| 📍 **Location** | Tundla, Uttar Pradesh, India 283204 🇮🇳 |
 
 <br />
 
